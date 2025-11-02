@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | Al Fahim</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="flex items-center justify-center min-h-screen bg-gradient-to-br from-orange-400 via-purple-800 to-indigo-900 px-3">
+
+  <!-- Register Card -->
+  <div class="bg-white/20 backdrop-blur-lg border border-white/30 rounded-3xl shadow-2xl w-full max-w-sm p-8 text-white">
+    <!-- Logo -->
+    <div class="flex flex-col items-center mb-8">
+      <img src="logo.jpg" alt="Logo" class="w-16 h-16 rounded-full border border-white/40 mb-3">
+      <h1 class="text-2xl font-bold">Al Fahim</h1>
+      <p class="text-white/70 text-sm mt-1">Create your account below</p>
+    </div>
+
+    <!-- Form -->
+    <form class="space-y-5">
+      <!-- User ID (auto-generated) -->
+      <div class="relative">
+        <input id="userId" type="text" placeholder="Your ID" readonly
+          class="w-full bg-white/20 placeholder-white/60 text-white rounded-full px-12 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <i class="fas fa-id-badge absolute left-4 top-3.5 text-white/70"></i>
+      </div>
+
+      <!-- Username -->
+      <div class="relative">
+        <input type="text" placeholder="Username"
+          class="w-full bg-white/20 placeholder-white/60 text-white rounded-full pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <i class="fas fa-user absolute left-4 top-3.5 text-white/70"></i>
+      </div>
+
+      <!-- Email -->
+      <div class="relative">
+        <input type="email" placeholder="Email address"
+          class="w-full bg-white/20 placeholder-white/60 text-white rounded-full pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <i class="fas fa-envelope absolute left-4 top-3.5 text-white/70"></i>
+      </div>
+
+      <!-- Password -->
+      <div class="relative">
+        <input id="password" type="password" placeholder="Password"
+          class="w-full bg-white/20 placeholder-white/60 text-white rounded-full pl-12 pr-10 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <i class="fas fa-lock absolute left-4 top-3.5 text-white/70"></i>
+        <button type="button" id="togglePassword"
+          class="absolute right-4 top-3.5 text-white/70 hover:text-white focus:outline-none">
+          <i class="fas fa-eye"></i>
+        </button>
+      </div>
+
+      <!-- Register Button -->
+      <button
+        class="w-full bg-green-500 hover:bg-green-600 font-semibold text-white py-3 rounded-full transition transform hover:scale-[1.02] shadow-lg">
+        Register
+      </button>
+
+      <p class="flex items-center justify-center text-sm text-white/70 text-center">
+        Already have an account?
+        <a href="login.html" class="ml-1 text-white font-bold hover:text-blue-300 transition">Login</a>
+      </p>
+    </form>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // Password Toggle
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
+    const icon = togglePassword.querySelector("i");
+
+    togglePassword.addEventListener("click", () => {
+      const isPassword = passwordInput.type === "password";
+      passwordInput.type = isPassword ? "text" : "password";
+      icon.classList.toggle("fa-eye");
+      icon.classList.toggle("fa-eye-slash");
+    });
+
+    // Random User ID Generator
+    function generateUserId() {
+      const randomId = "AF" + Math.floor(100000 + Math.random() * 900000); // e.g., AF345678
+      document.getElementById("userId").value = randomId;
+    }
+
+    // Generate ID when page loads
+    window.onload = generateUserId;
+  </script>
+
+</body>
+</html>
