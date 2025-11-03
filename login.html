@@ -45,16 +45,16 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
     import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
 
-    // ✅ Firebase config (same as your register page)
+    // ✅ Firebase config (your hidden one goes here)
     const firebaseConfig = {
-      apiKey: "AlzaSyCk9CjanS4FPdp 0xg12EBqc2kLA9FZ5nbc",
-      authDomain: "alfahim09.firebaseapp.com",
-      databaseURL: "https://alfahim09-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "alfahim09",
-      storageBucket: "alfahim09.firebasestorage.app",
-      messagingSenderId: "415193239731",
-      appId: "1: 415193239731: web: 1ac949c324780be3e3e0c6"
-    };
+  apiKey: "AlzaSyCk9CjanS4FPdp 0xg12EBqc2kLA9FZ5nbc",
+  authDomain: "alfahim09.firebaseapp.com",
+  databaseURL: "https://alfahim09-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "alfahim09",
+  storageBucket: "alfahim09.firebasestorage.app",
+  messagingSenderId: "415193239731",
+  appId: "1: 415193239731: web: 1ac949c324780be3e3e0c6"
+};
 
     const app = initializeApp(firebaseConfig);
     const dbRef = ref(getDatabase(app));
@@ -76,9 +76,11 @@
         if (snapshot.exists()) {
           const userData = snapshot.val();
           if (userData.password === password) {
+            // ✅ Save login info to sessionStorage
+            sessionStorage.setItem("userId", userData.userId);
+
             alert("✅ Login successful! Welcome " + userData.username);
-            // Redirect to home page
-            window.location.href = "main.html";
+            window.location.href = "main.html"; // Redirect to dashboard
           } else {
             alert("❌ Incorrect password. Try again.");
           }
