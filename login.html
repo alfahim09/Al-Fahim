@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login | Al Fahim</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 
-<body class="flex items-center justify-center min-h-screen bg-gradient-to-br from-orange-400 via-purple-800 to-indigo-900 px-3">
-
-  <!-- Login Card -->
+<body class="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-900 via-purple-800 to-orange-400 px-3">
   <div class="bg-white/20 backdrop-blur-lg border border-white/30 rounded-3xl shadow-2xl w-full max-w-sm p-8 text-white">
+    
     <!-- Logo -->
     <div class="flex flex-col items-center mb-8">
       <img src="logo.jpg" alt="Logo" class="w-16 h-16 rounded-full border border-white/40 mb-3">
@@ -20,55 +17,78 @@
       <p class="text-white/70 text-sm mt-1">Welcome back! Please log in</p>
     </div>
 
-    <!-- Form -->
-    <form class="space-y-5">
-      <!-- Email -->
+    <!-- Login Form -->
+    <form id="loginForm" class="space-y-5">
       <div class="relative">
-        <input type="email" placeholder="enter your id"
+        <input type="text" id="userId" placeholder="User ID (e.g. AF12345)" required 
           class="w-full bg-white/20 placeholder-white/60 text-white rounded-full pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
       </div>
 
-      <!-- Password -->
       <div class="relative">
-        <input id="password" type="password" placeholder="password"
-          class="w-full bg-white/20 placeholder-white/60 text-white rounded-full pl-12 pr-10 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
-        <button type="button" id="togglePassword"
-          class="absolute right-4 top-3.5 text-white/70 hover:text-white focus:outline-none">
-          <i class="fas fa-eye"></i>
-        </button>
+        <input type="password" id="password" placeholder="Password" required 
+          class="w-full bg-white/20 placeholder-white/60 text-white rounded-full pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
       </div>
 
-      <!-- Options -->
-      <div class="flex items-center justify-between text-sm text-white/70">
-        <label class="flex items-center gap-2">
-          <input type="checkbox" class="accent-blue-500 ">
-          Remember me
-        </label>
-        <a href="#" class="hover:text-white transition">Forgot Password?</a>
-      </div>
-
-      <!-- Login Button -->
-      <button
-        class="w-full bg-blue-500 hover:bg-blue-600 font-semibold text-white py-3 rounded-full transition transform hover:scale-[1.02] shadow-lg">
+      <button type="submit" 
+        class="w-full bg-green-500 hover:bg-green-300 font-semibold text-white py-3 rounded-full transition transform hover:scale-[1.02] shadow-lg hover:text-black">
         Login
       </button>
-      <p class="flex items-center justify-center text-sm text-white/70 text-center"><span>You haven't an account Please <a href="Register.html" class="text-blue cursor-pointer hover:text-blue text-white/70 font-bold">Register</a> now</span></p>
+
+      <p class="text-center text-sm text-white/70 mt-3">
+        Don’t have an account?
+        <a href="Register.html" class="text-blue-300 font-bold hover:underline">Register</a>
+      </p>
     </form>
   </div>
 
-  <!-- Password Toggle Script -->
-  <script>
-    const togglePassword = document.getElementById("togglePassword");
-    const passwordInput = document.getElementById("password");
-    const icon = togglePassword.querySelector("i");
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+    import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
 
-    togglePassword.addEventListener("click", () => {
-      const isPassword = passwordInput.type === "password";
-      passwordInput.type = isPassword ? "text" : "password";
-      icon.classList.toggle("fa-eye");
-      icon.classList.toggle("fa-eye-slash");
+    // ✅ Firebase config (same as your register page)
+    const firebaseConfig = {
+      apiKey: "AlzaSyCk9CjanS4FPdp 0xg12EBqc2kLA9FZ5nbc",
+      authDomain: "alfahim09.firebaseapp.com",
+      databaseURL: "https://alfahim09-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "alfahim09",
+      storageBucket: "alfahim09.firebasestorage.app",
+      messagingSenderId: "415193239731",
+      appId: "1: 415193239731: web: 1ac949c324780be3e3e0c6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const dbRef = ref(getDatabase(app));
+
+    // ✅ Login Function
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const userId = document.getElementById("userId").value.trim();
+      const password = document.getElementById("password").value;
+
+      if (userId === "" || password === "") {
+        alert("Please fill in all fields");
+        return;
+      }
+
+      try {
+        const snapshot = await get(child(dbRef, "users/" + userId));
+        if (snapshot.exists()) {
+          const userData = snapshot.val();
+          if (userData.password === password) {
+            alert("✅ Login successful! Welcome " + userData.username);
+            // Redirect to home page
+            window.location.href = "index.html";
+          } else {
+            alert("❌ Incorrect password. Try again.");
+          }
+        } else {
+          alert("❌ User ID not found. Please register first.");
+        }
+      } catch (error) {
+        alert("Error: " + error);
+      }
     });
   </script>
-
 </body>
 </html>
