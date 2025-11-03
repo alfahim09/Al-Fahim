@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Al Fahim</title>
-
-  <!-- Tailwind CSS -->
+  <title>Dashboard | Al Fahim</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
 
   <style>
     html {
@@ -21,6 +17,7 @@
 
   <!-- Navbar -->
   <nav class="bg-white shadow px-6 py-3 flex items-center justify-between sticky top-0 z-50 shadow-xl">
+    <!-- Left -->
     <div class="flex items-center gap-3">
       <img src="logo.jpg" alt="Logo" class="w-12 h-12 rounded-full border" />
       <h1 class="text-xl font-bold">Al Fahim</h1>
@@ -33,19 +30,34 @@
       <a href="#" class="hover:text-blue-600 transition">Service</a>
     </div>
 
-    <!-- Buttons -->
-    <div class="flex items-center gap-4">
-      <button
-        class="bg-blue-400 text-white font-bold px-4 py-2 rounded-full hover:bg-blue-700 transition rotate-[90deg] cursor-pointer">
-        |||
+    <!-- Profile Menu Button -->
+    <div class="relative">
+      <button id="profileBtn"
+        class="bg-blue-500 text-white font-bold px-4 py-2 rounded-full hover:bg-blue-700 transition">
+        ☰ Menu
       </button>
+
+      <!-- Profile Dropdown -->
+      <div id="profileMenu"
+        class="hidden absolute right-0 mt-3 w-56 bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden z-50">
+        <div class="p-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+          <h3 class="font-bold text-lg" id="userName">User</h3>
+          <p class="text-sm text-white/80" id="userId">UserID</p>
+        </div>
+        <div class="p-4 text-sm text-gray-700 space-y-2">
+          <p><strong>Email:</strong> <span id="userEmail">example@mail.com</span></p>
+          <hr>
+          <button id="logoutBtn"
+            class="w-full text-center bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg font-semibold transition">
+            Logout
+          </button>
+        </div>
+      </div>
     </div>
   </nav>
 
- 
-
   <!-- Hero Section -->
-  <section class="w-full bg-gradient-to-r from-green-900 to-purple-900 text-white py-20 px-3 overflow-hidden">
+  <section class="w-full bg-gradient-to-r from-green-900 to-purple-900 text-white py-20 px-3">
     <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 items-center gap-10">
       <!-- Text -->
       <div>
@@ -53,8 +65,7 @@
           class="bg-white/10 text-sm px-4 py-2 rounded-full inline-block mb-6 hover:bg-white/20 transition">
           #fm_info_tech
         </a>
-        <h1
-          class="text-4xl md:text-5xl font-bold leading-tight mb-6 [text-shadow:0_2px_10px_rgba(0,0,0,0.2)]">
+        <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6 [text-shadow:0_2px_10px_rgba(0,0,0,0.2)]">
           Al Fahim<br>Fun and Friendly
         </h1>
         <p class="text-gray-200 mb-10">
@@ -77,12 +88,13 @@
   <!-- Tools Section -->
   <section class="bg-gradient-to-r from-cyan-300 to-purple-300 py-20 px-3">
     <div class="max-w-7xl mx-auto px-6 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Game</h2>
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Games</h2>
       <p class="text-gray-600 max-w-2xl mx-auto mb-12">
         Explore the games that bring joy, strategy, and excitement to everyone.
       </p>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <!-- Game Card -->
         <div
           class="bg-gradient-to-br from-indigo-50 to-purple-50 border border-purple-200 rounded-2xl p-6 hover:shadow-xl hover:scale-105 transition">
           <div
@@ -90,9 +102,7 @@
             🎲
           </div>
           <h3 class="text-lg font-semibold mb-2 text-left">Ludo</h3>
-          <p class="text-gray-600 text-sm text-left">
-            Classic board fun for all ages — roll the dice, race home, and enjoy laughter together.
-          </p>
+          <p class="text-gray-600 text-sm text-left">Classic board fun for all ages — roll the dice and race home!</p>
         </div>
 
         <div
@@ -102,9 +112,7 @@
             ♟️
           </div>
           <h3 class="text-lg font-semibold mb-2 text-left">Shogi</h3>
-          <p class="text-gray-600 text-sm text-left">
-            Japanese chess — capture, promote, and outthink your opponent in this battle of strategy.
-          </p>
+          <p class="text-gray-600 text-sm text-left">Japanese chess — capture, promote, and outthink your opponent.</p>
         </div>
 
         <div
@@ -114,9 +122,7 @@
             ⚽️
           </div>
           <h3 class="text-lg font-semibold mb-2 text-left">Football</h3>
-          <p class="text-gray-600 text-sm text-left">
-            The world's favorite sport — teamwork, dribbling, and goals that unite millions.
-          </p>
+          <p class="text-gray-600 text-sm text-left">The world's favorite sport — teamwork, dribbling, and goals!</p>
         </div>
 
         <div
@@ -126,9 +132,7 @@
             🏏
           </div>
           <h3 class="text-lg font-semibold mb-2 text-left">Cricket</h3>
-          <p class="text-gray-600 text-sm text-left">
-            Bat, bowl, and chase thrilling victories — a sport of skill, passion, and unity.
-          </p>
+          <p class="text-gray-600 text-sm text-left">Bat, bowl, and chase thrilling victories with skill and unity.</p>
         </div>
       </div>
     </div>
@@ -137,16 +141,14 @@
   <!-- Footer -->
   <footer class="bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 text-white p-10">
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div>
-        <div class="flex items-center gap-5 mb-4">
-          <img src="logo.jpg" alt="Logo" class="w-12 h-12 rounded-full border border-white/20" />
-          <h2 class="text-2xl font-bold">Al Fahim</h2>
-        </div>
+      <div class="flex items-center gap-5 mb-4">
+        <img src="logo.jpg" alt="Logo" class="w-12 h-12 rounded-full border border-white/20" />
+        <h2 class="text-2xl font-bold">Al Fahim</h2>
       </div>
 
-      <div class="md:text-center">
-        <h3 class="text-lg font-semibold mb-3 text-left">Quick Links</h3>
-        <ul class="space-y-2 text-white/80 text-left">
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Quick Links</h3>
+        <ul class="space-y-2 text-white/80">
           <li><a href="#" class="hover:text-white transition">About</a></li>
           <li><a href="#" class="hover:text-white transition">Services</a></li>
           <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
@@ -154,9 +156,9 @@
         </ul>
       </div>
 
-      <div class="md:text-right">
-        <h3 class="text-xl font-semibold mb-3 text-left">Follow Us</h3>
-        <div class="flex flex-col gap-2 text-left text-white/80">
+      <div>
+        <h3 class="text-xl font-semibold mb-3">Follow Us</h3>
+        <div class="flex flex-col gap-2 text-white/80">
           <a href="#" class="hover:text-red-500 transition">YouTube</a>
           <a href="#" class="hover:text-blue-500 transition">Facebook</a>
           <a href="#" class="hover:text-pink-500 transition">Instagram</a>
@@ -170,7 +172,55 @@
     </div>
   </footer>
 
- 
+  <!-- Firebase + JS -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+    import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
 
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      databaseURL: "https://alfahim09-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "alfahim09",
+      storageBucket: "YOUR_BUCKET",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // 🔹 Profile Menu Toggle
+    const profileBtn = document.getElementById("profileBtn");
+    const profileMenu = document.getElementById("profileMenu");
+
+    profileBtn.addEventListener("click", () => {
+      profileMenu.classList.toggle("hidden");
+    });
+
+    // 🔹 Load Logged-in User Info
+    const loggedUserId = sessionStorage.getItem("userId");
+    if (loggedUserId) {
+      const dbRef = ref(db);
+      get(child(dbRef, "users/" + loggedUserId)).then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          document.getElementById("userName").textContent = data.username;
+          document.getElementById("userEmail").textContent = data.email;
+          document.getElementById("userId").textContent = data.userId;
+        }
+      });
+    } else {
+      // Not logged in → redirect to login page
+      window.location.href = "login.html";
+    }
+
+    // 🔹 Logout
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      sessionStorage.clear();
+      alert("Logged out successfully!");
+      window.location.href = "login.html";
+    });
+  </script>
 </body>
 </html>
