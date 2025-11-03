@@ -1,95 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Register | Al Fahim</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
-
 <body class="flex items-center justify-center min-h-screen bg-gradient-to-br from-orange-400 via-purple-800 to-indigo-900 px-3">
-
-  <!-- Register Card -->
   <div class="bg-white/20 backdrop-blur-lg border border-white/30 rounded-3xl shadow-2xl w-full max-w-sm p-8 text-white">
+    
     <!-- Logo -->
     <div class="flex flex-col items-center mb-8">
       <img src="logo.jpg" alt="Logo" class="w-16 h-16 rounded-full border border-white/40 mb-3">
       <h1 class="text-2xl font-bold">Al Fahim</h1>
-      <p class="text-white/70 text-sm mt-1">Create your account below</p>
+      <p class="text-white/70 text-sm mt-1">Create your account</p>
     </div>
 
-    <!-- Form -->
-    <form class="space-y-5">
-      <!-- User ID (auto-generated) -->
+    <form id="registerForm" class="space-y-5">
       <div class="relative">
-        <input id="userId" type="text" placeholder="Your ID" readonly
-          class="w-full bg-white/20 placeholder-white/60 text-white rounded-full px-12 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
-        <i class="fas fa-id-badge absolute left-4 top-3.5 text-white/70"></i>
+        <input type="text" id="name" placeholder="Full Name" required class="w-full bg-white/20 placeholder-white/60 text-white rounded-full pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
       </div>
-
-      <!-- Username -->
       <div class="relative">
-        <input type="text" placeholder="Username"
-          class="w-full bg-white/20 placeholder-white/60 text-white rounded-full pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
-        <i class="fas fa-user absolute left-4 top-3.5 text-white/70"></i>
+        <input type="email" id="email" placeholder="Email" required class="w-full bg-white/20 placeholder-white/60 text-white rounded-full pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
       </div>
-
-      <!-- Email -->
       <div class="relative">
-        <input type="email" placeholder="Email address"
-          class="w-full bg-white/20 placeholder-white/60 text-white rounded-full pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
-        <i class="fas fa-envelope absolute left-4 top-3.5 text-white/70"></i>
+        <input type="password" id="password" placeholder="Password" required class="w-full bg-white/20 placeholder-white/60 text-white rounded-full pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
       </div>
+      <button type="submit" class="w-full bg-green-500 hover:bg-green-300 font-semibold text-white py-3 rounded-full transition transform hover:scale-[1.02] shadow-lg hover:text-black">Register</button>
 
-      <!-- Password -->
-      <div class="relative">
-        <input id="password" type="password" placeholder="Password"
-          class="w-full bg-white/20 placeholder-white/60 text-white rounded-full pl-12 pr-10 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
-        <i class="fas fa-lock absolute left-4 top-3.5 text-white/70"></i>
-        <button type="button" id="togglePassword"
-          class="absolute right-4 top-3.5 text-white/70 hover:text-white focus:outline-none">
-          <i class="fas fa-eye"></i>
-        </button>
-      </div>
-
-      <!-- Register Button -->
-      <button
-        class="w-full bg-green-500 hover:bg-green-600 font-semibold text-white py-3 rounded-full transition transform hover:scale-[1.02] shadow-lg">
-        Register
-      </button>
-
-      <p class="flex items-center justify-center text-sm text-white/70 text-center">
+      <p class="text-center text-sm text-white/70 mt-3">
         Already have an account?
-        <a href="login.html" class="ml-1 text-white font-bold hover:text-blue-300 transition">Login</a>
+        <a href="login.html" class="text-blue-300 font-bold hover:underline">Login</a>
       </p>
     </form>
   </div>
 
-  <!-- Scripts -->
-  <script>
-    // Password Toggle
-    const togglePassword = document.getElementById("togglePassword");
-    const passwordInput = document.getElementById("password");
-    const icon = togglePassword.querySelector("i");
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
 
-    togglePassword.addEventListener("click", () => {
-      const isPassword = passwordInput.type === "password";
-      passwordInput.type = isPassword ? "text" : "password";
-      icon.classList.toggle("fa-eye");
-      icon.classList.toggle("fa-eye-slash");
-    });
+    // ✅ Your Firebase config (replace with your own values)
+    const firebaseConfig = {
+      apiKey: "AlzaSyCk9CjanS4FPdp 0xg12EBqc2kLA9FZ5nbc",
+      authDomain: "alfahim09.firebaseapp.com",
+      databaseURL: "https://alfahim09-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "alfahim09",
+      storageBucket: "alfahim09.firebasestorage.app",
+      messagingSenderId: "415193239731",
+      appId: "1: 415193239731: web: 1ac949c324780be3e3e0c6"
+    };
 
-    // Random User ID Generator
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // ✅ Generate unique user ID starting with AF
     function generateUserId() {
-      const randomId = "AF" + Math.floor(100000 + Math.random() * 900000); // e.g., AF345678
-      document.getElementById("userId").value = randomId;
+      const randomNum = Math.floor(10000 + Math.random() * 90000); // 5 random digits
+      return "AF" + randomNum;
     }
 
-    // Generate ID when page loads
-    window.onload = generateUserId;
-  </script>
+    // ✅ Handle form submit
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
+      e.preventDefault();
 
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      const userId = generateUserId();
+
+      set(ref(db, "users/" + userId), {
+        userId: userId,
+        username: name,
+        email: email,
+        password: password
+      })
+      .then(() => {
+        alert("✅ Registration successful!\nYour User ID: " + userId);
+        window.location.href = "login.html";
+      })
+      .catch((error) => {
+        alert("❌ Error: " + error);
+      });
+    });
+  </script>
 </body>
 </html>
