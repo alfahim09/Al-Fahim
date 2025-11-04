@@ -1,46 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Register | Al Fahim</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<title>User Registration with Email Verification</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-database-compat.js"></script>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+</style>
 </head>
 <body class="flex items-center justify-center min-h-screen bg-gradient-to-br from-orange-400 via-purple-800 to-indigo-900 px-3">
-  <div class="bg-white/20 backdrop-blur-lg border border-white/30 rounded-3xl shadow-2xl w-full max-w-sm p-8 text-white">
-    
-    <!-- Logo -->
-    <div class="flex flex-col items-center mb-8">
-      <img src="logo.jpg" alt="Logo" class="w-16 h-16 rounded-full border border-white/40 mb-3">
-      <h1 class="text-2xl font-bold">Al Fahim</h1>
-      <p class="text-white/70 text-sm mt-1">Create your account</p>
-    </div>
 
-    <form id="registerForm" class="space-y-5">
-      <div class="relative">
-        <input type="text" id="name" placeholder="Full Name" required class="w-full bg-white/20 placeholder-white/60 text-white rounded-full pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
-      </div>
-      <div class="relative">
-        <input type="email" id="email" placeholder="Email" required class="w-full bg-white/20 placeholder-white/60 text-white rounded-full pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
-      </div>
-      <div class="relative">
-        <input type="password" id="password" placeholder="Password" required class="w-full bg-white/20 placeholder-white/60 text-white rounded-full pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
-      </div>
-      <button type="submit" class="w-full bg-green-500 hover:bg-green-300 font-semibold text-white py-3 rounded-full transition transform hover:scale-[1.02] shadow-lg hover:text-black">Register</button>
+<div class="bg-white/20 backdrop-blur-lg border border-white/30 rounded-3xl shadow-2xl w-full max-w-sm p-8 text-white">
 
-      <p class="text-center text-sm text-white/70 mt-3">
-        Already have an account?
-        <a href="login.html" class="text-blue-300 font-bold hover:underline">Login</a>
-      </p>
-    </form>
+  <!-- Logo -->
+  <div class="flex flex-col items-center mb-8">
+    <img src="logo.jpg" alt="Logo" class="w-16 h-16 rounded-full border border-white/40 mb-3">
+    <h1 class="text-2xl font-bold">Al Fahim</h1>
+    <p class="text-white/70 text-sm mt-1">Create your account</p>
   </div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
+  <!-- Step 1: Registration -->
+  <div id="registerStep">
+    <input id="username" type="text" placeholder="Enter username" class="w-full bg-white/20 placeholder-white/60 text-white rounded-full px-4 py-3 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
+    <input id="email" type="email" placeholder="Enter email" class="w-full bg-white/20 placeholder-white/60 text-white rounded-full px-4 py-3 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
+    <input id="password" type="password" placeholder="Enter password" class="w-full bg-white/20 placeholder-white/60 text-white rounded-full px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400">
+    <button onclick="sendOTP()" class="w-full bg-blue-500 hover:bg-blue-700 text-white py-2 rounded-full">Send Verification OTP</button>
+  </div>
 
-    // ✅ Your Firebase config (replace with your own values)
-    const firebaseConfig = {
+  <p class="text-center text-sm text-white/70 mt-3">
+    Already have an account?
+    <a href="login.html" class="text-blue-300 font-bold hover:underline">Login</a>
+  </p>
+
+  <!-- Step 2: OTP -->
+  <div id="verifyStep" style="display:none;">
+    <input type="text" id="otpInput" placeholder="Enter 6-digit OTP" maxlength="6"
+      class="w-full bg-white/20 placeholder-white/60 text-white rounded-full px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-green-400">
+    <button onclick="verifyOTP()" class="w-full bg-green-500 hover:bg-green-700 text-white py-2 rounded-full">Verify & Register</button>
+  </div>
+
+  <p id="message" class="text-center mt-4 text-sm"></p>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getDatabase, ref, set, get, child, push } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
+
+// ✅ Your Firebase config (add your own)
+
+  // ✅ Initialize Firebase (replace with your actual config)
+  const firebaseConfig = {
       apiKey: "AlzaSyCk9CjanS4FPdp 0xg12EBqc2kLA9FZ5nbc",
       authDomain: "alfahim09.firebaseapp.com",
       databaseURL: "https://alfahim09-default-rtdb.asia-southeast1.firebasedatabase.app",
@@ -50,40 +65,105 @@
       appId: "1: 415193239731: web: 1ac949c324780be3e3e0c6"
     };
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
+// ✅ Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-    // ✅ Generate unique user ID starting with AF
+// ✅ Initialize EmailJS
+(function(){
+  emailjs.init("0oJXXPwhcVGlnIisd"); // replace with your public key from EmailJS
+})();
+
+let generatedOTP = "";
+let userData = {};
+
+window.sendOTP = async function () {
+  const username = document.getElementById("username").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  if (!username || !email || !password) {
+    alert("⚠️ Please fill in all fields!");
+    return;
+  }
+
+  // ✅ Check if email already exists
+  const dbRef = ref(db);
+  const snapshot = await get(child(dbRef, "users"));
+  let emailExists = false;
+
+  if (snapshot.exists()) {
+    snapshot.forEach((childSnapshot) => {
+      const user = childSnapshot.val();
+      if (user.email && user.email.toLowerCase() === email.toLowerCase()) {
+        emailExists = true;
+      }
+    });
+  }
+
+  if (emailExists) {
+    alert("❌ This email is already registered. Please use another email or log in.");
+    return;
+  }
+
+  // ✅ If email is unique → send OTP
+  userData = { username, email, password };
+  generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+
+  emailjs
+    .send("service_cdsdvvi", "template_luplg3u", {
+      to_email: email,
+      message: `${generatedOTP} is your OTP for registration verification.`,
+    })
+    .then(() => {
+      alert("✅ OTP sent successfully! Check your email.");
+      document.getElementById("registerStep").style.display = "none";
+      document.getElementById("verifyStep").style.display = "block";
+    })
+    .catch((error) => {
+      console.error("FAILED", error);
+      alert("❌ Failed to send OTP. Check console.");
+    });
+};
+
+window.verifyOTP = function () {
+  const entered = document.getElementById("otpInput").value.trim();
+  const msg = document.getElementById("message");
+
+  if (entered === generatedOTP) {
+    msg.innerHTML = "✅ OTP verified! Registering user...";
+    msg.style.color = "lightgreen";
+
+    // ✅ Generate unique user ID
     function generateUserId() {
-      const randomNum = Math.floor(10000 + Math.random() * 90000); // 5 random digits
+      const randomNum = Math.floor(10000 + Math.random() * 90000);
       return "AF" + randomNum;
     }
 
-    // ✅ Handle form submit
-    document.getElementById("registerForm").addEventListener("submit", function(e) {
-      e.preventDefault();
+    const userId = generateUserId();
 
-      const name = document.getElementById("name").value;
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      const userId = generateUserId();
-
-      set(ref(db, "users/" + userId), {
-        userId: userId,
-        username: name,
-        email: email,
-        password: password
-      })
+    // ✅ Save user to Firebase
+    const newRef = push(ref(db, "users"));
+    set(newRef, {
+      userId: userId,
+      username: userData.username,
+      email: userData.email,
+      password: userData.password
+    })
       .then(() => {
-        alert("✅ Registration successful!\nYour User ID: " + userId);
+        alert(`🎉 Registration Successful!\nYour User ID: ${userId}\nPlease remember your ID.`);
         window.location.href = "login.html";
       })
-      .catch((error) => {
-        alert("❌ Error: " + error);
+      .catch((err) => {
+        msg.innerHTML = "❌ Failed to save user data!";
+        console.error(err);
       });
-    });
-  </script>
+  } else {
+    msg.innerHTML = "❌ Invalid OTP. Please try again!";
+    msg.style.color = "red";
+  }
+};
+</script>
+
 </body>
 </html>
