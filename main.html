@@ -1,202 +1,224 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard | Al Fahim</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-800 to-orange-400 text-white relative">
-
-  <!-- 🔹 Profile Button + Dropdown -->
-  <div class="absolute top-5 right-5 z-50">
-    <button id="profileBtn" class="flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white px-4 py-2 rounded-full transition-all duration-300 shadow-lg">
-      <img src="logo.jpg" alt="Profile" class="w-8 h-8 rounded-full border border-white/30">
-      <span class="font-semibold" id="userName">Loading...</span>
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform duration-300" id="arrowIcon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-      </svg>
-    </button>
-
-    <!-- Animated Dropdown -->
-    <div id="profileMenu" class="hidden mt-2 w-56 bg-white/10 backdrop-blur-xl border border-white/30 rounded-2xl shadow-2xl overflow-hidden transform origin-top-right scale-95 opacity-0 transition-all duration-300">
-      <div class="px-5 py-4 text-white text-sm space-y-2">
-        <p><strong>User ID:</strong> <span id="userId">—</span></p>
-        <p><strong>Email:</strong> <span id="userEmail">—</span></p>
+ <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | Al Fahim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+  </head>
+  
+  <body class="bg-gray-100 text-gray-800">
+  
+    <!-- Navbar -->
+    <nav class="bg-white shadow px-6 py-3 flex items-center justify-between sticky top-0 z-50 shadow-xl">
+      <!-- Left -->
+      <div class="flex items-center gap-3">
+        <img src="logo.jpg" alt="Logo" class="w-12 h-12 rounded-full border" />
+        <h1 class="text-xl font-bold">Al Fahim</h1>
       </div>
-      <div class="border-t border-white/20"></div>
-      <button id="logoutBtn" class="w-full text-left px-5 py-3 text-red-300 hover:text-red-500 font-semibold transition-all">Logout</button>
-    </div>
-  </div>
-
-  <!-- 🔹 Main Content -->
-  <section class="pt-28 pb-16 px-6 max-w-7xl mx-auto">
-    <h1 class="text-4xl font-bold text-center mb-10 drop-shadow-md">Welcome to Al Fahim Games</h1>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-      <div class="bg-gradient-to-br from-indigo-50 to-purple-50 border border-purple-200 rounded-2xl p-6 hover:shadow-xl hover:scale-105 transition text-gray-800">
-        <div class="w-14 h-14 bg-gradient-to-r from-indigo-300 to-purple-300 rounded-xl flex items-center justify-center text-2xl mb-4 shadow">🎲</div>
-        <h3 class="text-lg font-semibold mb-2">Ludo</h3>
-        <p class="text-gray-600 text-sm">Classic board fun for all ages — roll the dice and race home!</p>
+  
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex gap-6 font-medium">
+        <a href="#" class="hover:text-blue-600 transition">About</a>
+        <a href="#" class="hover:text-blue-600 transition">Contact Us</a>
+        <a href="#" class="hover:text-blue-600 transition">Service</a>
       </div>
-
-      <div class="bg-gradient-to-br from-indigo-50 to-purple-50 border border-purple-200 rounded-2xl p-6 hover:shadow-xl hover:scale-105 transition text-gray-800">
-        <div class="w-14 h-14 bg-gradient-to-r from-indigo-300 to-purple-300 rounded-xl flex items-center justify-center text-2xl mb-4 shadow">♟️</div>
-        <h3 class="text-lg font-semibold mb-2">Shogi</h3>
-        <p class="text-gray-600 text-sm">Japanese chess — capture, promote, and outthink your opponent.</p>
-      </div>
-
-      <div class="bg-gradient-to-br from-indigo-50 to-purple-50 border border-purple-200 rounded-2xl p-6 hover:shadow-xl hover:scale-105 transition text-gray-800">
-        <div class="w-14 h-14 bg-gradient-to-r from-indigo-300 to-purple-300 rounded-xl flex items-center justify-center text-2xl mb-4 shadow">⚽️</div>
-        <h3 class="text-lg font-semibold mb-2">Football</h3>
-        <p class="text-gray-600 text-sm">The world's favorite sport — teamwork, dribbling, and goals!</p>
-      </div>
-
-      <div class="bg-gradient-to-br from-indigo-50 to-purple-50 border border-purple-200 rounded-2xl p-6 hover:shadow-xl hover:scale-105 transition text-gray-800">
-        <div class="w-14 h-14 bg-gradient-to-r from-indigo-300 to-purple-300 rounded-xl flex items-center justify-center text-2xl mb-4 shadow">🏏</div>
-        <h3 class="text-lg font-semibold mb-2">Cricket</h3>
-        <p class="text-gray-600 text-sm">Bat, bowl, and chase thrilling victories with skill and unity.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 🔹 Footer -->
-  <footer class="bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 text-white p-10">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="flex items-center gap-5 mb-4">
-        <img src="logo.jpg" alt="Logo" class="w-12 h-12 rounded-full border border-white/20" />
-        <h2 class="text-2xl font-bold">Al Fahim</h2>
-      </div>
-
-      <div>
-        <h3 class="text-lg font-semibold mb-3">Quick Links</h3>
-        <ul class="space-y-2 text-white/80">
-          <li><a href="#" class="hover:text-white transition">About</a></li>
-          <li><a href="#" class="hover:text-white transition">Services</a></li>
-          <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
-          <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h3 class="text-xl font-semibold mb-3">Follow Us</h3>
-        <div class="flex flex-col gap-2 text-white/80">
-          <a href="#" class="hover:text-red-500 transition">YouTube</a>
-          <a href="#" class="hover:text-blue-500 transition">Facebook</a>
-          <a href="#" class="hover:text-pink-500 transition">Instagram</a>
-          <a href="#" class="hover:text-sky-400 transition">Twitter</a>
+  
+      <!-- Profile Menu Button -->
+      <div class="relative">
+        <button id="profileBtn"
+          class="bg-blue-500 text-white font-bold px-4 py-2 rounded-full hover:bg-blue-700 transition">
+          ☰ Menu
+        </button>
+  
+        <!-- Profile Dropdown -->
+        <div id="profileMenu"
+          class="hidden absolute right-0 mt-3 w-56 bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden z-50">
+          <div class="p-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+            <h3 class="font-bold text-lg" id="userName">User</h3>
+            <p class="text-sm text-white/80" id="userId">UserID</p>
+          </div>
+          <div class="p-4 text-sm text-gray-700 space-y-2">
+            <p><strong>Email:</strong> <span id="userEmail">example@mail.com</span></p>
+            <hr>
+            <button id="logoutBtn"
+              class="w-full text-center bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg font-semibold transition">
+              Logout
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="border-t border-white/20 mt-8 pt-6 text-center text-white/60 text-sm">
-      © 2025 Al Fahim. All Rights Reserved.
-    </div>
-  </footer>
-
-  <!-- 🔹 Firebase + JS (REPLACE existing script block with this) -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-  import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
-
-  // <-- Use your firebase config (kept as you had it) -->
-  const firebaseConfig = {
-    apiKey: "AIzaSyCk9CjanS4FPdp0xg12EBqc2kLA9FZ5nbc",
-    authDomain: "alfahim09.firebaseapp.com",
-    databaseURL: "https://alfahim09-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "alfahim09",
-    storageBucket: "alfahim09.firebasestorage.app",
-    messagingSenderId: "415193239731",
-    appId: "1:415193239731:web:1ac949c324780be3e3e0c6"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-
-  // Profile button elements (must exist in DOM)
-  const profileBtn = document.getElementById("profileBtn");
-  const profileMenu = document.getElementById("profileMenu");
-  const arrowIcon = document.getElementById("arrowIcon");
-
-  // Get the logged user id from sessionStorage (set this at login)
-  const loggedUserId = sessionStorage.getItem("userId");
-  console.log("dashboard: session userId =", loggedUserId);
-
-  if (!loggedUserId) {
-    console.warn("No userId in sessionStorage → redirecting to login");
-    window.location.href = "login.html";
-  } else {
-    // The DB stores users under push keys; we must scan users/ and find the object where user.userId === loggedUserId
-    const usersRef = ref(db, "users");
-    get(usersRef)
-      .then((snapshot) => {
-        if (!snapshot.exists()) {
-          console.error("No users node found in database");
-          alert("User data not found. Please login again.");
-          sessionStorage.clear();
-          window.location.href = "login.html";
-          return;
-        }
-
-        let found = false;
-        snapshot.forEach((childSnap) => {
-          const user = childSnap.val();
-          // defensive checks
-          if (user && user.userId && user.userId === loggedUserId) {
-            found = true;
-            console.log("Found user object:", user);
-            // Populate UI
-            document.getElementById("userName").textContent = user.username || "User";
-            document.getElementById("userEmail").textContent = user.email || "—";
-            document.getElementById("userId").textContent = user.userId || "—";
-            // Stop iterating early
-            return true; // (in forEach pause)
-          }
-        });
-
-        if (!found) {
-          console.warn("UserId not found in any child under users/");
-          alert("User not found. Please login again.");
-          sessionStorage.clear();
-          window.location.href = "login.html";
-        }
-      })
-      .catch((err) => {
-        console.error("Error reading users from database:", err);
-        alert("Error connecting to database. Open console for details.");
-      });
-  }
-
-  // Profile Dropdown Animation (same as before)
-  profileBtn.addEventListener("click", () => {
-    const isHidden = profileMenu.classList.contains("hidden");
-    if (isHidden) {
-      profileMenu.classList.remove("hidden");
-      setTimeout(() => {
-        profileMenu.classList.remove("opacity-0", "scale-95");
-        profileMenu.classList.add("opacity-100", "scale-100");
-      }, 10);
-      arrowIcon.classList.add("rotate-180");
-    } else {
-      profileMenu.classList.remove("opacity-100", "scale-100");
-      profileMenu.classList.add("opacity-0", "scale-95");
-      arrowIcon.classList.remove("rotate-180");
-      setTimeout(() => profileMenu.classList.add("hidden"), 200);
-    }
-  });
-
-  // Logout clears session and redirects
-  document.getElementById("logoutBtn").addEventListener("click", () => {
-    sessionStorage.clear();
-    alert("Logged out successfully!");
-    window.location.href = "login.html";
-  });
-
-  // NOTE: Do NOT clear session on every beforeunload or page navigation.
-  // If you want session cleared on actual tab close, you may optionally use 'unload' (not reliable across browsers).
-  // For now we keep sessionStorage until logout or tab close (default behavior).
-</script>
+    </nav>
   
-</body>
-</html>
+    <!-- Hero Section -->
+    <section class="w-full bg-gradient-to-r from-green-900 to-purple-900 text-white py-20 px-3">
+      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 items-center gap-10">
+        <!-- Text -->
+        <div>
+          <a href="mailto:fm.pvt.co@gmail.com"
+            class="bg-white/10 text-sm px-4 py-2 rounded-full inline-block mb-6 hover:bg-white/20 transition">
+            #fm_info_tech
+          </a>
+          <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6 [text-shadow:0_2px_10px_rgba(0,0,0,0.2)]">
+            Al Fahim<br>Fun and Friendly
+          </h1>
+          <p class="text-gray-200 mb-10">
+            Welcome to Al Fahim! We're all about making fun, easy, and enjoyable. Whether you're here to explore, learn, or connect — we've got you covered.
+          </p>
+          <button
+            class="bg-white text-indigo-900 font-semibold px-7 py-3 rounded-full inline-flex items-center gap-3 hover:bg-gray-200 transition">
+            Start fun now
+            <span class="w-8 h-8 bg-indigo-900 text-white flex justify-center items-center rounded-full">→</span>
+          </button>
+        </div>
+  
+        <!-- Image -->
+        <div class="flex justify-center md:justify-end">
+          <img src="hero.jpg" alt="Hero" class="shadow-xl rounded-3xl w-full max-w-md" />
+        </div>
+      </div>
+    </section>
+  
+    <!-- Tools Section -->
+    <section class="bg-gradient-to-r from-cyan-300 to-purple-300 py-20 px-3">
+      <div class="max-w-7xl mx-auto px-6 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Games</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto mb-12">
+          Explore the games that bring joy, strategy, and excitement to everyone.
+        </p>
+
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">  
+    <!-- Game Card -->  
+    <div  
+      class="bg-gradient-to-br from-indigo-50 to-purple-50 border border-purple-200 rounded-2xl p-6 hover:shadow-xl hover:scale-105 transition">  
+      <div  
+        class="w-14 h-14 bg-gradient-to-r from-indigo-300 to-purple-300 rounded-xl flex items-center justify-center text-2xl mb-4 shadow">  
+        🎲  
+      </div>  
+      <h3 class="text-lg font-semibold mb-2 text-left">Ludo</h3>  
+      <p class="text-gray-600 text-sm text-left">Classic board fun for all ages — roll the dice and race home!</p>  
+    </div>  
+
+    <div  
+      class="bg-gradient-to-br from-indigo-50 to-purple-50 border border-purple-200 rounded-2xl p-6 hover:shadow-xl hover:scale-105 transition">  
+      <div  
+        class="w-14 h-14 bg-gradient-to-r from-indigo-300 to-purple-300 rounded-xl flex items-center justify-center text-2xl mb-4 shadow">  
+        ♟️  
+      </div>  
+      <h3 class="text-lg font-semibold mb-2 text-left">Shogi</h3>  
+      <p class="text-gray-600 text-sm text-left">Japanese chess — capture, promote, and outthink your opponent.</p>  
+    </div>  
+
+    <div  
+      class="bg-gradient-to-br from-indigo-50 to-purple-50 border border-purple-200 rounded-2xl p-6 hover:shadow-xl hover:scale-105 transition">  
+      <div  
+        class="w-14 h-14 bg-gradient-to-r from-indigo-300 to-purple-300 rounded-xl flex items-center justify-center text-2xl mb-4 shadow">  
+        ⚽️  
+      </div>  
+      <h3 class="text-lg font-semibold mb-2 text-left">Football</h3>  
+      <p class="text-gray-600 text-sm text-left">The world's favorite sport — teamwork, dribbling, and goals!</p>  
+    </div>  
+
+    <div  
+      class="bg-gradient-to-br from-indigo-50 to-purple-50 border border-purple-200 rounded-2xl p-6 hover:shadow-xl hover:scale-105 transition">  
+      <div  
+        class="w-14 h-14 bg-gradient-to-r from-indigo-300 to-purple-300 rounded-xl flex items-center justify-center text-2xl mb-4 shadow">  
+        🏏  
+      </div>  
+      <h3 class="text-lg font-semibold mb-2 text-left">Cricket</h3>  
+      <p class="text-gray-600 text-sm text-left">Bat, bowl, and chase thrilling victories with skill and unity.</p>  
+    </div>  
+  </div>  
+</div>
+
+  </section>    <!-- Footer -->    <footer class="bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 text-white p-10">  
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">  
+      <div class="flex items-center gap-5 mb-4">  
+        <img src="logo.jpg" alt="Logo" class="w-12 h-12 rounded-full border border-white/20" />  
+        <h2 class="text-2xl font-bold">Al Fahim</h2>  
+      </div>  <div>  
+    <h3 class="text-lg font-semibold mb-3">Quick Links</h3>  
+    <ul class="space-y-2 text-white/80">  
+      <li><a href="#" class="hover:text-white transition">About</a></li>  
+      <li><a href="#" class="hover:text-white transition">Services</a></li>  
+      <li><a href="#" class="hover:text-white transition">Contact Us</a></li>  
+      <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>  
+    </ul>  
+  </div>  
+
+  <div>  
+    <h3 class="text-xl font-semibold mb-3">Follow Us</h3>  
+    <div class="flex flex-col gap-2 text-white/80">  
+      <a href="#" class="hover:text-red-500 transition">YouTube</a>  
+      <a href="#" class="hover:text-blue-500 transition">Facebook</a>  
+      <a href="#" class="hover:text-pink-500 transition">Instagram</a>  
+      <a href="#" class="hover:text-sky-400 transition">Twitter</a>  
+    </div>  
+  </div>  
+</div>  
+
+<div class="border-t border-white/20 mt-8 pt-6 text-center text-white/60 text-sm">  
+  © 2025 Al Fahim. All Rights Reserved.  
+</div>
+
+  </footer>    <!-- Firebase + JS -->    <script type="module">  
+    // clear session on close  
+window.addEventListener("beforeunload", () => {  
+  sessionStorage.clear();  
+});  
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";  
+    import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";  
+  
+    const firebaseConfig = {  
+      apiKey: "AlzaSyCk9CjanS4FPdp 0xg12EBqc2kLA9FZ5nbc",  
+      authDomain: "alfahim09.firebaseapp.com",  
+      databaseURL: "https://alfahim09-default-rtdb.asia-southeast1.firebasedatabase.app",  
+      projectId: "alfahim09",  
+      storageBucket: "alfahim09.firebasestorage.app",  
+      messagingSenderId: "415193239731",  
+      appId: "1: 415193239731: web: 1ac949c324780be3e3e0c6"  
+    };  
+  
+    const app = initializeApp(firebaseConfig);  
+    const db = getDatabase(app);  
+  
+    // 🔹 Profile Menu Toggle  
+    const profileBtn = document.getElementById("profileBtn");  
+    const profileMenu = document.getElementById("profileMenu");  
+  
+    profileBtn.addEventListener("click", () => {  
+      profileMenu.classList.toggle("hidden");  
+    });  
+  
+    // 🔹 Load Logged-in User Info  
+    const loggedUserId = sessionStorage.getItem("userId");  
+    if (loggedUserId) {  
+      const dbRef = ref(db);  
+      get(child(dbRef, "users/" + loggedUserId)).then((snapshot) => {  
+        if (snapshot.exists()) {  
+          const data = snapshot.val();  
+          document.getElementById("userName").textContent = data.username;  
+          document.getElementById("userEmail").textContent = data.email;  
+          document.getElementById("userId").textContent = data.userId;  
+        }  
+      });  
+    } else {  
+      // Not logged in → redirect to login page  
+      window.location.href = "login.html";  
+    }  
+  
+    // 🔹 Logout  
+    document.getElementById("logoutBtn").addEventListener("click", () => {  
+      sessionStorage.clear();  
+      alert("Logged out successfully!");  
+      window.location.href = "login.html";  
+    });  
+  </script>  </body>  
+</html>  
