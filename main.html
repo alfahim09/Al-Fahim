@@ -32,9 +32,8 @@
   <!-- 🔹 Main Content -->
   <section class="pt-28 pb-16 px-6 max-w-7xl mx-auto">
     <h1 class="text-4xl font-bold text-center mb-10 drop-shadow-md">Welcome to Al Fahim Games</h1>
-    
+
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-      <!-- Game Card -->
       <div class="bg-gradient-to-br from-indigo-50 to-purple-50 border border-purple-200 rounded-2xl p-6 hover:shadow-xl hover:scale-105 transition text-gray-800">
         <div class="w-14 h-14 bg-gradient-to-r from-indigo-300 to-purple-300 rounded-xl flex items-center justify-center text-2xl mb-4 shadow">🎲</div>
         <h3 class="text-lg font-semibold mb-2">Ludo</h3>
@@ -138,7 +137,6 @@
 
     profileBtn.addEventListener("click", () => {
       const isHidden = profileMenu.classList.contains("hidden");
-      
       if (isHidden) {
         profileMenu.classList.remove("hidden");
         setTimeout(() => {
@@ -150,27 +148,21 @@
         profileMenu.classList.remove("opacity-100", "scale-100");
         profileMenu.classList.add("opacity-0", "scale-95");
         arrowIcon.classList.remove("rotate-180");
-        setTimeout(() => {
-          profileMenu.classList.add("hidden");
-        }, 200);
+        setTimeout(() => profileMenu.classList.add("hidden"), 200);
       }
     });
 
     // 🔹 Logout
-document.getElementById("logoutBtn").addEventListener("click", () => {
-  sessionStorage.clear();
-  alert("Logged out successfully!");
-  window.location.href = "login.html";
-});
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      sessionStorage.clear();
+      alert("Logged out successfully!");
+      window.location.href = "login.html";
+    });
 
-// ✅ Remove beforeunload (it caused immediate logout)
-// Instead, clear session only when browser/tab is actually closed
-window.addEventListener("unload", (event) => {
-  if (!document.hidden) {
-    sessionStorage.clear();
-  }
-});
-    
+    // ✅ Clear session ONLY when tab is closed
+    window.addEventListener("unload", () => {
+      if (!document.hidden) sessionStorage.clear();
+    });
   </script>
 </body>
 </html>
