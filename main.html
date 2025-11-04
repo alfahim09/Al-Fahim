@@ -157,12 +157,19 @@
     });
 
     // 🔹 Logout
-    document.getElementById("logoutBtn").addEventListener("click", () => {
-      sessionStorage.clear();
-      alert("Logged out successfully!");
-      window.location.href = "login.html";
-    });
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  sessionStorage.clear();
+  alert("Logged out successfully!");
+  window.location.href = "login.html";
+});
 
+// ✅ Remove beforeunload (it caused immediate logout)
+// Instead, clear session only when browser/tab is actually closed
+window.addEventListener("unload", (event) => {
+  if (!document.hidden) {
+    sessionStorage.clear();
+  }
+});
     
   </script>
 </body>
