@@ -45,50 +45,63 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
     import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
 
-    // ✅ Firebase config (your hidden one goes here)
-    const firebaseConfig = {
-  apiKey: "AlzaSyCk9CjanS4FPdp 0xg12EBqc2kLA9FZ5nbc",
-  authDomain: "alfahim09.firebaseapp.com",
-  databaseURL: "https://alfahim09-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "alfahim09",
-  storageBucket: "alfahim09.firebasestorage.app",
-  messagingSenderId: "415193239731",
-  appId: "1: 415193239731: web: 1ac949c324780be3e3e0c6"
-};
 
+  // ✅ Initialize Firebase (replace with your actual config)
+  const firebaseConfig = {
+      apiKey: "AlzaSyCk9CjanS4FPdp 0xg12EBqc2kLA9FZ5nbc",
+      authDomain: "alfahim09.firebaseapp.com",
+      databaseURL: "https://alfahim09-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "alfahim09",
+      storageBucket: "alfahim09.firebasestorage.app",
+      messagingSenderId: "415193239731",
+      appId: "1: 415193239731: web: 1ac949c324780be3e3e0c6"
+    };
+
+    // ✅ Initialize Firebase
     const app = initializeApp(firebaseConfig);
-    const dbRef = ref(getDatabase(app));
+    const db = getDatabase(app);
+    const dbRef = ref(db);
 
     // ✅ Login Function
     document.getElementById("loginForm").addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const userId = document.getElementById("userId").value.trim();
-      const password = document.getElementById("password").value;
+      const enteredId = document.getElementById("userId").value.trim();
+      const enteredPassword = document.getElementById("password").value.trim();
 
-      if (userId === "" || password === "") {
-        alert("Please fill in all fields");
+      if (!enteredId || !enteredPassword) {
+        alert("⚠️ Please fill in all fields.");
         return;
       }
 
       try {
-        const snapshot = await get(child(dbRef, "users/" + userId));
+        const snapshot = await get(child(dbRef, "users"));
         if (snapshot.exists()) {
-          const userData = snapshot.val();
-          if (userData.password === password) {
-            // ✅ Save login info to sessionStorage
-            sessionStorage.setItem("userId", userData.userId);
+          let found = false;
 
-            alert("✅ Login successful! Welcome " + userData.username);
-            window.location.href = "main.html"; // Redirect to dashboard
-          } else {
-            alert("❌ Incorrect password. Try again.");
+          snapshot.forEach((childSnap) => {
+            const user = childSnap.val();
+            if (user.userId === enteredId && user.password === enteredPassword) {
+              found = true;
+              // ✅ Save session data
+              sessionStorage.setItem("userId", user.userId);
+              sessionStorage.setItem("username", user.username);
+              sessionStorage.setItem("email", user.email);
+
+              alert("✅ Login successful! Welcome " + user.username);
+              window.location.href = "main.html"; // redirect to your dashboard
+            }
+          });
+
+          if (!found) {
+            alert("❌ Invalid User ID or Password.");
           }
         } else {
-          alert("❌ User ID not found. Please register first.");
+          alert("⚠️ No users found in database.");
         }
       } catch (error) {
-        alert("Error: " + error);
+        console.error(error);
+        alert("❌ Error connecting to Firebase!");
       }
     });
   </script>
