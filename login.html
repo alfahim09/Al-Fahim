@@ -45,9 +45,8 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
     import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
 
-
-  // ✅ Initialize Firebase (replace with your actual config)
-  const firebaseConfig = {
+    // ✅ Replace this with your Firebase config
+    const firebaseConfig = {
       apiKey: "AlzaSyCk9CjanS4FPdp 0xg12EBqc2kLA9FZ5nbc",
       authDomain: "alfahim09.firebaseapp.com",
       databaseURL: "https://alfahim09-default-rtdb.asia-southeast1.firebasedatabase.app",
@@ -81,20 +80,26 @@
 
           snapshot.forEach((childSnap) => {
             const user = childSnap.val();
-            if (user.userId === enteredId && user.password === enteredPassword) {
-              found = true;
-              // ✅ Save session data
-              sessionStorage.setItem("userId", user.userId);
-              sessionStorage.setItem("username", user.username);
-              sessionStorage.setItem("email", user.email);
 
-              alert("✅ Login successful! Welcome " + user.username);
-              window.location.href = "main.html"; // redirect to your dashboard
+            if (user.userId === enteredId) {
+              found = true;
+
+              if (user.password === enteredPassword) {
+                // ✅ Save login info to sessionStorage
+                sessionStorage.setItem("userId", user.userId);
+                sessionStorage.setItem("username", user.username);
+                sessionStorage.setItem("email", user.email);
+
+                alert("✅ Login successful! Welcome " + user.username);
+                window.location.href = "main.html"; // Redirect to dashboard
+              } else {
+                alert("❌ Incorrect password. Try again.");
+              }
             }
           });
 
           if (!found) {
-            alert("❌ Invalid User ID or Password.");
+            alert("❌ User ID not found. Please register first.");
           }
         } else {
           alert("⚠️ No users found in database.");
