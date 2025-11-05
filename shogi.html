@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shogi | Al Fahim</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+
+<!-- Navbar -->
+<nav class="bg-white shadow-lg px-6 py-4 flex items-center justify-between sticky top-0 z-50">
+  <div class="flex items-center gap-3">
+    <img src="logo.jpg" alt="Logo" class="w-12 h-12 rounded-full border" />
+    <h1 class="text-xl font-bold text-[#B23A48]">Al Fahim</h1>
+  </div>
+
+  <div class="hidden md:flex gap-6 font-medium">
+    <a href="index.html" class="hover:text-[#FD8A8A] transition">Home</a>
+    <a href="#games" class="hover:text-[#FD8A8A] transition">Games</a>
+    <a href="about.html" class="hover:text-[#FD8A8A] transition">About</a>
+    <a href="contact.html" class="hover:text-[#FD8A8A] transition">Contact</a>
+  </div>
+
+  <!-- Dropdown -->
+  <div class="relative">
+    <button id="profileBtn"
+      class="bg-gradient-to-r from-[#FD8A8A] to-[#B23A48] text-white font-bold px-5 py-2.5 rounded-full hover:from-[#ff6f6f] hover:to-[#912b38] transition duration-300 shadow-lg flex items-center gap-2">
+      ☰ Menu
+    </button>
+
+    <div id="profileMenu"
+      class="hidden absolute right-0 mt-3 w-[300px] bg-white border border-gray-200 rounded-2xl shadow-xl overflow-hidden transform origin-top-right scale-95 opacity-0 transition-all duration-300 ease-out z-50">
+      
+      <div class="p-4 bg-gradient-to-r from-[#FD8A8A] to-[#B23A48] text-white text-center">
+        <h3 class="font-semibold text-lg tracking-wide">Welcome to Shogi</h3>
+      </div>
+
+      <div class="p-4 text-sm text-gray-700 space-y-3">
+        <a href="main.html" class="block hover:text-[#FD8A8A] transition">Home</a>
+        <a href="profile.html" class="block hover:text-[#FD8A8A] transition">Profile</a>
+        <a href="game.html" class="block hover:text-[#FD8A8A] transition">Games</a>
+        <a href="about.html" class="block hover:text-[#FD8A8A] transition">About Us</a>
+        <a href="contact.html" class="block hover:text-[#FD8A8A] transition">Contact</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<body class="bg-gradient-to-r from-[#FFEFEF] via-[#FFF5F5] to-[#FFEAEA] text-gray-800">
+
+  <header class="text-center py-16 bg-gradient-to-r from-[#FD8A8A] to-[#B23A48] text-white">
+    <div class="text-6xl mb-4">♟️</div>
+    <h1 class="text-4xl font-bold mb-2">Shogi</h1>
+    <p class="text-white/90 max-w-xl mx-auto">The Japanese game of kings — a battle of intellect, precision, and endless strategy.</p>
+  </header>
+
+  <section class="max-w-3xl mx-auto px-6 py-16 text-center">
+    <div class="bg-white rounded-2xl shadow-lg p-8">
+      <h2 class="text-2xl font-semibold mb-4 text-[#B23A48]">About the Game</h2>
+      <p class="text-gray-600 mb-6">Shogi, also known as Japanese Chess, challenges players to think ahead and use captured pieces strategically. It’s an ancient game of deep tactical brilliance.</p>
+
+      <div class="flex justify-center gap-4 mt-6">
+        <a href="#" class="bg-[#FD8A8A] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#ff6f6f] transition">🎮 Play Now</a>
+        <a href="rules.html" class="border border-[#FD8A8A] text-[#B23A48] px-6 py-3 rounded-full font-semibold hover:bg-[#FFF5F5] transition">📘 Learn Rules</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-gradient-to-r from-[#B23A48] to-[#8C2F3D] text-white py-10">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-6">
+      <div class="flex items-center gap-4">
+        <img src="logo.jpg" alt="Logo" class="w-12 h-12 rounded-full border border-white/30" />
+        <h2 class="text-2xl font-bold">Al Fahim</h2>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Quick Links</h3>
+        <ul class="space-y-2 text-white/80">
+          <li><a href="main.html" class="hover:text-white transition">Home</a></li>
+          <li><a href="about.html" class="hover:text-white transition">About</a></li>
+          <li><a href="contact.html" class="hover:text-white transition">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Follow Us</h3>
+        <div class="flex flex-col gap-2 text-white/80">
+          <a href="#" class="hover:text-red-500 transition">YouTube</a>
+          <a href="#" class="hover:text-blue-500 transition">Facebook</a>
+          <a href="#" class="hover:text-pink-500 transition">Instagram</a>
+          <a href="#" class="hover:text-sky-400 transition">Twitter</a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-white/20 mt-8 pt-6 text-center text-white/60 text-sm">
+      © 2025 Al Fahim. All Rights Reserved.
+    </div>
+  </footer>
+
+<script>
+  const profileBtn = document.getElementById("profileBtn");
+  const profileMenu = document.getElementById("profileMenu");
+
+  profileBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleDropdown();
+  });
+
+  function toggleDropdown() {
+    if (profileMenu.classList.contains("hidden")) {
+      profileMenu.classList.remove("hidden");
+      setTimeout(() => {
+        profileMenu.classList.add("scale-100", "opacity-100");
+        profileMenu.classList.remove("scale-95", "opacity-0");
+      }, 10);
+    } else {
+      closeDropdown();
+    }
+  }
+
+  function closeDropdown() {
+    profileMenu.classList.add("scale-95", "opacity-0");
+    profileMenu.classList.remove("scale-100", "opacity-100");
+    setTimeout(() => {
+      profileMenu.classList.add("hidden");
+    }, 200);
+  }
+
+  document.addEventListener("click", (event) => {
+    if (!profileMenu.contains(event.target) && !profileBtn.contains(event.target)) {
+      if (!profileMenu.classList.contains("hidden")) {
+        closeDropdown();
+      }
+    }
+  });
+</script>
+</body>
+</html>

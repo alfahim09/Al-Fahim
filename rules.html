@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Rules | Al Fahim</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    .hidden-section { display: none; }
+  </style>
+</head>
+
+<body class="bg-[#EECE9D] text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-lg px-6 py-4 flex items-center justify-between sticky top-0 z-50">
+    <div class="flex items-center gap-3">
+      <img src="logo.jpg" alt="Logo" class="w-12 h-12 rounded-full border" />
+      <h1 class="text-xl font-bold text-amber-700">Al Fahim</h1>
+    </div>
+
+    <div class="hidden md:flex gap-6 font-medium">
+      <a href="main.html" class="hover:text-amber-700 transition">Home</a>
+      <a href="game.html" class="hover:text-amber-700 transition">Games</a>
+      <a href="rules.html" class="text-amber-700 font-semibold">Rules</a>
+      <a href="about.html" class="hover:text-amber-700 transition">About</a>
+      <a href="contact.html" class="hover:text-amber-700 transition">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="text-center py-16 bg-gradient-to-r from-amber-600 to-yellow-500 text-white">
+    <div class="text-5xl mb-4">📘</div>
+    <h1 class="text-4xl font-bold mb-2">Game Rules & How to Play</h1>
+    <p class="text-white/90 max-w-2xl mx-auto">Learn the rules and strategies for your favorite games — Ludo, Shogi, Football, and Cricket!</p>
+  </header>
+
+  <!-- Search and Quick Links -->
+  <section class="max-w-4xl mx-auto text-center px-6 py-10">
+    <input id="searchInput" type="text" placeholder="🔍 Search for a game (e.g., Ludo, Cricket)" 
+           class="w-full md:w-2/3 p-3 rounded-full border border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-600 transition mb-6">
+
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="#ludo" class="bg-amber-600 text-white px-6 py-2 rounded-full hover:bg-amber-700 transition">🎲 Ludo</a>
+      <a href="#shogi" class="bg-amber-600 text-white px-6 py-2 rounded-full hover:bg-amber-700 transition">♟️ Shogi</a>
+      <a href="#football" class="bg-amber-600 text-white px-6 py-2 rounded-full hover:bg-amber-700 transition">⚽ Football</a>
+      <a href="#cricket" class="bg-amber-600 text-white px-6 py-2 rounded-full hover:bg-amber-700 transition">🏏 Cricket</a>
+    </div>
+  </section>
+
+  <!-- Game Sections -->
+  <div id="rulesContainer">
+
+    <!-- Ludo -->
+    <section id="ludo" class="max-w-4xl mx-auto px-6 py-16 rule-section">
+      <div class="bg-white rounded-2xl shadow-lg p-8">
+        <h2 class="text-2xl font-bold mb-4 text-amber-700">🎲 Ludo</h2>
+        <p class="text-gray-700 mb-4">Ludo is a fun and strategic board game for 2–4 players. The goal is to move all your tokens from start to finish before anyone else.</p>
+        <h3 class="text-lg font-semibold text-amber-600 mb-2">How to Play:</h3>
+        <ul class="list-disc list-inside text-gray-700 space-y-2">
+          <li>Each player gets 4 tokens of one color.</li>
+          <li>Roll a six to move a token out of your base.</li>
+          <li>Rolling a six gives an extra turn.</li>
+          <li>Move tokens clockwise around the board using dice rolls.</li>
+          <li>If you land on an opponent’s token, send it back to start.</li>
+          <li>First player to bring all 4 tokens home wins!</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Shogi -->
+    <section id="shogi" class="max-w-4xl mx-auto px-6 py-16 rule-section">
+      <div class="bg-white rounded-2xl shadow-lg p-8">
+        <h2 class="text-2xl font-bold mb-4 text-amber-700">♟️ Shogi</h2>
+        <p class="text-gray-700 mb-4">Shogi, or Japanese Chess, is a strategy game where captured pieces can be reused, creating endless tactical possibilities.</p>
+        <h3 class="text-lg font-semibold text-amber-600 mb-2">How to Play:</h3>
+        <ul class="list-disc list-inside text-gray-700 space-y-2">
+          <li>Each player commands 20 pieces, including a king, generals, and pawns.</li>
+          <li>Captured pieces can be dropped back onto the board as your own.</li>
+          <li>Pieces can be promoted when they enter the enemy zone.</li>
+          <li>Win by checkmating your opponent’s king.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Football -->
+    <section id="football" class="max-w-4xl mx-auto px-6 py-16 rule-section">
+      <div class="bg-white rounded-2xl shadow-lg p-8">
+        <h2 class="text-2xl font-bold mb-4 text-amber-700">⚽ Football</h2>
+        <p class="text-gray-700 mb-4">Football (soccer) is played between two teams of 11 players each, aiming to score goals using a round ball.</p>
+        <h3 class="text-lg font-semibold text-amber-600 mb-2">How to Play:</h3>
+        <ul class="list-disc list-inside text-gray-700 space-y-2">
+          <li>Matches last 90 minutes, split into two halves.</li>
+          <li>Players can use any part of their body except their hands and arms (goalkeepers can).</li>
+          <li>A goal is scored when the ball crosses the goal line completely.</li>
+          <li>The team with the most goals wins.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Cricket -->
+    <section id="cricket" class="max-w-4xl mx-auto px-6 py-16 rule-section">
+      <div class="bg-white rounded-2xl shadow-lg p-8">
+        <h2 class="text-2xl font-bold mb-4 text-amber-700">🏏 Cricket</h2>
+        <p class="text-gray-700 mb-4">Cricket is a team sport involving batting, bowling, and fielding. Teams take turns scoring runs and defending wickets.</p>
+        <h3 class="text-lg font-semibold text-amber-600 mb-2">How to Play:</h3>
+        <ul class="list-disc list-inside text-gray-700 space-y-2">
+          <li>Two teams of 11 players each take turns batting and bowling.</li>
+          <li>Batters score runs by hitting the ball and running between wickets.</li>
+          <li>Fielders aim to dismiss batters through catches, run-outs, or bowling.</li>
+          <li>The team with the most runs after both innings wins.</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gradient-to-r from-amber-700 to-yellow-600 text-white py-10">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-6">
+      <div class="flex items-center gap-4">
+        <img src="logo.jpg" alt="Logo" class="w-12 h-12 rounded-full border border-white/30" />
+        <h2 class="text-2xl font-bold">Al Fahim</h2>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Quick Links</h3>
+        <ul class="space-y-2 text-white/80">
+          <li><a href="main.html" class="hover:text-white transition">Home</a></li>
+          <li><a href="about.html" class="hover:text-white transition">About</a></li>
+          <li><a href="contact.html" class="hover:text-white transition">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Follow Us</h3>
+        <div class="flex flex-col gap-2 text-white/80">
+          <a href="#" class="hover:text-red-400 transition">YouTube</a>
+          <a href="#" class="hover:text-blue-400 transition">Facebook</a>
+          <a href="#" class="hover:text-pink-400 transition">Instagram</a>
+          <a href="#" class="hover:text-sky-300 transition">Twitter</a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-white/20 mt-8 pt-6 text-center text-white/60 text-sm">
+      © 2025 Al Fahim. All Rights Reserved.
+    </div>
+  </footer>
+
+  <!-- Search Functionality -->
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const sections = document.querySelectorAll(".rule-section");
+
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.toLowerCase();
+      sections.forEach(section => {
+        const text = section.innerText.toLowerCase();
+        if (text.includes(query) || query === "") {
+          section.style.display = "block";
+        } else {
+          section.style.display = "none";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
